@@ -1,0 +1,163 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}|AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj|c:\\users\\muszesze\\downloads\\avaloniaapplication2\\phonegttkserwer\\avaloniaapplication2.android\\mainactivity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}|AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj|solutionrelative:avaloniaapplication2.android\\mainactivity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}|AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj|c:\\users\\muszesze\\downloads\\avaloniaapplication2\\phonegttkserwer\\avaloniaapplication2.android\\services\\androidbleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}|AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj|solutionrelative:avaloniaapplication2.android\\services\\androidbleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}|AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj|c:\\users\\muszesze\\downloads\\avaloniaapplication2\\phonegttkserwer\\avaloniaapplication2.android\\avaloniaapplication2.android.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7AD1DAC8-7FBE-49D5-8614-7321233DB82E}|AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj|solutionrelative:avaloniaapplication2.android\\avaloniaapplication2.android.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|c:\\users\\muszesze\\downloads\\avaloniaapplication2\\phonegttkserwer\\avaloniaapplication2\\views\\mainview.axaml||{4DC5468E-D6D5-4393-818C-BC82F347E8FD}",
+      "RelativeMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|solutionrelative:avaloniaapplication2\\views\\mainview.axaml||{4DC5468E-D6D5-4393-818C-BC82F347E8FD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|c:\\users\\muszesze\\downloads\\avaloniaapplication2\\phonegttkserwer\\avaloniaapplication2\\views\\mainview.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|solutionrelative:avaloniaapplication2\\views\\mainview.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|c:\\users\\muszesze\\downloads\\avaloniaapplication2\\phonegttkserwer\\avaloniaapplication2\\app.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|solutionrelative:avaloniaapplication2\\app.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|c:\\users\\muszesze\\downloads\\avaloniaapplication2\\phonegttkserwer\\avaloniaapplication2\\app.axaml||{4DC5468E-D6D5-4393-818C-BC82F347E8FD}",
+      "RelativeMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|solutionrelative:avaloniaapplication2\\app.axaml||{4DC5468E-D6D5-4393-818C-BC82F347E8FD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|c:\\users\\muszesze\\downloads\\avaloniaapplication2\\phonegttkserwer\\avaloniaapplication2\\services\\ibleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|solutionrelative:avaloniaapplication2\\services\\ibleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|c:\\users\\muszesze\\downloads\\avaloniaapplication2\\phonegttkserwer\\avaloniaapplication2\\viewmodels\\viewmodelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568}|AvaloniaApplication2\\AvaloniaApplication2.csproj|solutionrelative:avaloniaapplication2\\viewmodels\\viewmodelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "App.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\App.axaml.cs",
+              "RelativeDocumentMoniker": "AvaloniaApplication2\\App.axaml.cs",
+              "ToolTip": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\App.axaml.cs",
+              "RelativeToolTip": "AvaloniaApplication2\\App.axaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T22:30:24.74Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "App.axaml",
+              "DocumentMoniker": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\App.axaml",
+              "RelativeDocumentMoniker": "AvaloniaApplication2\\App.axaml",
+              "ToolTip": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\App.axaml",
+              "RelativeToolTip": "AvaloniaApplication2\\App.axaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-17T22:30:22.121Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainActivity.cs",
+              "DocumentMoniker": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2.Android\\MainActivity.cs",
+              "RelativeDocumentMoniker": "AvaloniaApplication2.Android\\MainActivity.cs",
+              "ToolTip": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2.Android\\MainActivity.cs",
+              "RelativeToolTip": "AvaloniaApplication2.Android\\MainActivity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T22:21:52.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AndroidBleService.cs",
+              "DocumentMoniker": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2.Android\\Services\\AndroidBleService.cs",
+              "RelativeDocumentMoniker": "AvaloniaApplication2.Android\\Services\\AndroidBleService.cs",
+              "ToolTip": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2.Android\\Services\\AndroidBleService.cs",
+              "RelativeToolTip": "AvaloniaApplication2.Android\\Services\\AndroidBleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T22:21:00.801Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IBleService.cs",
+              "DocumentMoniker": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\Services\\IBleService.cs",
+              "RelativeDocumentMoniker": "AvaloniaApplication2\\Services\\IBleService.cs",
+              "ToolTip": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\Services\\IBleService.cs",
+              "RelativeToolTip": "AvaloniaApplication2\\Services\\IBleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T22:20:01.179Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AvaloniaApplication2.Android.csproj",
+              "DocumentMoniker": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj",
+              "RelativeDocumentMoniker": "AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj",
+              "ToolTip": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj",
+              "RelativeToolTip": "AvaloniaApplication2.Android\\AvaloniaApplication2.Android.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-02-17T22:13:47.558Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainView.axaml",
+              "DocumentMoniker": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\Views\\MainView.axaml",
+              "RelativeDocumentMoniker": "AvaloniaApplication2\\Views\\MainView.axaml",
+              "ToolTip": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\Views\\MainView.axaml",
+              "RelativeToolTip": "AvaloniaApplication2\\Views\\MainView.axaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-17T22:10:08.382Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ViewModelBase.cs",
+              "DocumentMoniker": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\ViewModels\\ViewModelBase.cs",
+              "RelativeDocumentMoniker": "AvaloniaApplication2\\ViewModels\\ViewModelBase.cs",
+              "ToolTip": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\ViewModels\\ViewModelBase.cs",
+              "RelativeToolTip": "AvaloniaApplication2\\ViewModels\\ViewModelBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T22:10:00.583Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainView.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\Views\\MainView.axaml.cs",
+              "RelativeDocumentMoniker": "AvaloniaApplication2\\Views\\MainView.axaml.cs",
+              "ToolTip": "C:\\Users\\Muszesze\\Downloads\\AvaloniaApplication2\\PhoneGttkSerwer\\AvaloniaApplication2\\Views\\MainView.axaml.cs",
+              "RelativeToolTip": "AvaloniaApplication2\\Views\\MainView.axaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T22:05:40.909Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
