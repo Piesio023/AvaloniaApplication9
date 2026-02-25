@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AvaloniaApplication2.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaApplication2.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+	<StackPanel
+	   VerticalAlignment="Center"
+	   HorizontalAlignment="Center"
+	   Spacing="25"
+	   Margin="20">
+
+		<!-- DUŻY TEKST -->
+		<TextBlock x:Name="MainText"
+				   Text="Witaj!"
+				   FontSize="40"
+				   FontWeight="Bold"
+				   HorizontalAlignment="Center"/>
+
+		<!-- GUZIK 1 -->
+		<Button Content="Kliknij mnie"
+				FontSize="24"
+				Padding="20"
+				Width="250"
+				Click="ButtonHello_Click"/>
+
+		<!-- GUZIK 2 -->
+		<Button Content="Drugi guzik"
+				FontSize="24"
+				Padding="20"
+				Width="250"/>
+
+	</StackPanel>
+</UserControl>
