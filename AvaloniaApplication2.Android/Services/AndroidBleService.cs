@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Android.Bluetooth;
+ï»¿using Android.Bluetooth;
 using Android.Bluetooth.LE;
 using Android.Content;
 using Android.OS;
 using Android.Util;
-using Java.Util;
 using AvaloniaApplication2.Services;
+using Java.Util;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AvaloniaApplication2.Android;
 
@@ -17,6 +17,16 @@ public class AndroidBleService : IBleService
     private BleServer _server;
     public string Status { get; private set; } = "Gotowy";
 
+    public void BleServer_SendNotification(string message)
+    {
+        if (_server == null)
+        {
+            var context = global::Android.App.Application.Context;
+            _server = new BleServer(context);
+        }
+        _server.SendNotification(message);
+    }
+
     public void StartServer()
     {
         try
@@ -24,65 +34,76 @@ public class AndroidBleService : IBleService
             var context = global::Android.App.Application.Context;
             _server = new BleServer(context);
             _server.Start();
-            Status = "Rozg³aszanie... Po³¹cz siê z PC!";
+            Status = "Rozglaszanie...";
         }
         catch (Exception ex)
         {
-            Status = $"B³¹d: {ex.Message}";
+            Status = $"Blad: {ex.Message}";
+            Log.Error("BLE_SERVICE", $"Wyjatek startu: {ex}");
+        }
+    }
+    public void StopServer()
+    {
+        if (_server != null)
+        {
+            _server.Stop();
+            _server = null; // WAÅ»NE: WyczyÅ›Ä‡ instancjÄ™, aby StartServer stworzyÅ‚ czystÄ…
+            Status = "Zatrzymano";
         }
     }
 }
 
 public class BleServer
 {
-    private Context _context;
-    private BluetoothManager _manager;
-    private BluetoothAdapter _adapter;
+    private readonly Context _context;
+    private readonly BluetoothManager _manager;
+    private readonly BluetoothAdapter _adapter;
     private BluetoothLeAdvertiser _advertiser;
     private BluetoothGattServer _gattServer;
-
-    // Lista pod³¹czonych urz¹dzeñ (np. Twój komputer)
-    private List<BluetoothDevice> _connectedDevices = new List<BluetoothDevice>();
-
-    // UUIDs - U¿yj tych samych w programie na komputerze!
-    // Service UUID
+    private BluetoothDevice _connectedDevice;
     public static readonly UUID SERVICE_UUID = UUID.FromString("12345678-1234-5678-1234-56789abcdef0");
-    // Characteristic UUID (to tutaj bêdziemy wysy³aæ "Hello World")
     public static readonly UUID CHAR_UUID = UUID.FromString("12345678-1234-5678-1234-56789abcdef1");
-
+    public static readonly UUID CCCD_UUID = UUID.FromString("00002902-0000-1000-8000-00805f9b34fb");
     private BluetoothGattCharacteristic _characteristic;
     private bool _isRunning = false;
+    private AdvertiseCallbackImpl _advertiseCallback = new AdvertiseCallbackImpl();
 
+    // WÅ‚aÅ›ciwoÅ›Ä‡ do sprawdzania, czy serwer nadal powinien dziaÅ‚aÄ‡
+    public bool IsRunning => _isRunning;
     public BleServer(Context context)
     {
         _context = context;
         _manager = (BluetoothManager)context.GetSystemService(Context.BluetoothService);
-        _adapter = _manager.Adapter;
+        _adapter = _manager?.Adapter;
     }
 
     public void Start()
     {
         if (_adapter == null || !_adapter.IsEnabled) return;
 
-        // 1. Konfiguracja Charakterystyki (Read + Notify)
-        _characteristic = new BluetoothGattCharacteristic(
-            CHAR_UUID,
-            GattProperty.Read | GattProperty.Notify,
-            GattPermission.Read);
+        _characteristic = new BluetoothGattCharacteristic(CHAR_UUID, GattProperty.Read | GattProperty.Notify, GattPermission.Read);
+        var descriptor = new BluetoothGattDescriptor(CCCD_UUID, GattDescriptorPermission.Write | GattDescriptorPermission.Read);
+        _characteristic.AddDescriptor(descriptor);
 
-        // 2. Konfiguracja Serwisu
         var service = new BluetoothGattService(SERVICE_UUID, GattServiceType.Primary);
         service.AddCharacteristic(_characteristic);
 
-        // 3. Uruchomienie Serwera GATT (odbieranie po³¹czeñ)
         _gattServer = _manager.OpenGattServer(_context, new ServerCallback(this));
-        _gattServer.AddService(service);
+        _gattServer?.AddService(service);
 
-        // 4. Rozpoczêcie Rozg³aszania (Advertising) - ¿eby PC nas widzia³
+        _isRunning = true;
+        StartAdvertising();
+    }
+
+    public void StartAdvertising() // Zmiana na publicznÄ…, aby Callback miaÅ‚ dostÄ™p
+    {
+        if (_connectedDevice != null || !_isRunning) return; // Nie startuj, jeÅ›li zamykamy serwer!
+
         _advertiser = _adapter.BluetoothLeAdvertiser;
         var settings = new AdvertiseSettings.Builder()
             .SetAdvertiseMode(AdvertiseMode.LowLatency)
             .SetConnectable(true)
+            .SetTimeout(0)
             .SetTxPowerLevel(AdvertiseTx.PowerHigh)
             .Build();
 
@@ -91,95 +112,96 @@ public class BleServer
             .AddServiceUuid(new ParcelUuid(SERVICE_UUID))
             .Build();
 
-        _advertiser.StartAdvertising(settings, data, new AdvertiseCallbackImpl());
-
-        // 5. Uruchomienie pêtli wysy³aj¹cej dane
-        _isRunning = true;
-        StartSendingDataLoop();
+        // 2. UÅ¼yj tej samej instancji callbacku!
+        _advertiser.StartAdvertising(settings, data, _advertiseCallback);
+        Log.Info("BLE", "RozpoczÄ™to rozgÅ‚aszanie");
     }
 
-    private void StartSendingDataLoop()
+    private void StopAdvertising()
     {
-        Task.Run(async () =>
+        // 3. UÅ¼yj tej samej instancji do zatrzymania!
+        _advertiser?.StopAdvertising(_advertiseCallback);
+        Log.Info("BLE", "Zatrzymano rozgÅ‚aszanie");
+    }
+
+    public void Stop()
+    {
+        _isRunning = false; // Najpierw powiedzmy systemowi, Å¼e siÄ™ zamykamy
+        StopAdvertising();
+
+        if (_connectedDevice != null)
         {
-            while (_isRunning)
-            {
-                if (_connectedDevices.Count > 0)
-                {
-                    SendNotification("Hello World " + DateTime.Now.ToString("HH:mm:ss"));
-                }
-                await Task.Delay(2000); // Co 2 sekundy
-            }
-        });
+            var deviceToDisconnect = _connectedDevice;
+            _connectedDevice = null; // CzyÅ›cimy przed anulowaniem
+            _gattServer?.CancelConnection(deviceToDisconnect);
+        }
+
+        _gattServer?.ClearServices(); // Dobra praktyka przed zamkniÄ™ciem
+        _gattServer?.Close();
+        _gattServer = null;
     }
 
-    private void SendNotification(string message)
+    public void SendNotification(string message)
     {
+        if (_characteristic == null || _gattServer == null || _connectedDevice == null) return;
+
         byte[] value = Encoding.UTF8.GetBytes(message);
         _characteristic.SetValue(value);
 
-        foreach (var device in _connectedDevices)
-        {
-            // Powiadamiamy pod³¹czone urz¹dzenie, ¿e wartoœæ siê zmieni³a
-            // False na koñcu oznacza, ¿e nie czekamy na potwierdzenie odbioru
-            _gattServer.NotifyCharacteristicChanged(device, _characteristic, false);
-        }
-        Log.Info("BLE", $"Wys³ano: {message}");
+        bool success = _gattServer.NotifyCharacteristicChanged(_connectedDevice, _characteristic, false);
+        Log.Debug("BLE", $"WysÅ‚ano do {_connectedDevice.Address}: {(success ? "Sukces" : "BÅ‚Ä…d")}");
     }
 
-    // Callback obs³uguj¹cy po³¹czenia przychodz¹ce
     class ServerCallback : BluetoothGattServerCallback
     {
         private readonly BleServer _parent;
+        public ServerCallback(BleServer parent) => _parent = parent;
 
-        public ServerCallback(BleServer parent)
+        public override void OnConnectionStateChange(BluetoothDevice device, ProfileState status, ProfileState newState)
         {
-            _parent = parent;
-        }
-
-        public override void OnConnectionStateChange(BluetoothDevice? device, ProfileState status, ProfileState newState)
-        {
-            base.OnConnectionStateChange(device, status, newState);
-
             if (newState == ProfileState.Connected)
             {
-                Log.Info("BLE", $"Urz¹dzenie pod³¹czone: {device.Address}");
-                lock (_parent._connectedDevices)
+                // Logika "tylko jeden": jeÅ›li juÅ¼ ktoÅ› jest, rozÅ‚Ä…cz nowego (lub starego)
+                if (_parent._connectedDevice != null && _parent._connectedDevice.Address != device.Address)
                 {
-                    _parent._connectedDevices.Add(device);
+                    _parent._gattServer.CancelConnection(device);
+                    return;
                 }
+
+                _parent._connectedDevice = device;
+                _parent.StopAdvertising(); // PrzestaÅ„ byÄ‡ widocznym dla innych
+                Log.Info("BLE", $"PoÅ‚Ä…czono z: {device.Address}");
             }
             else if (newState == ProfileState.Disconnected)
             {
-                Log.Info("BLE", $"Urz¹dzenie roz³¹czone: {device.Address}");
-                lock (_parent._connectedDevices)
+                if (_parent._connectedDevice?.Address == device.Address)
                 {
-                    _parent._connectedDevices.Remove(device);
+                    _parent._connectedDevice = null;
+                    Log.Info("BLE", "UrzÄ…dzenie rozÅ‚Ä…czone. Wznawiam rozgÅ‚aszanie...");
+                    _parent.StartAdvertising(); // Znowu widoczny dla PC
                 }
             }
         }
 
-        // Wymagane, aby PC móg³ w³¹czyæ subskrypcjê powiadomieñ
-        public override void OnDescriptorWriteRequest(BluetoothDevice? device, int requestId, BluetoothGattDescriptor? descriptor, bool preparedWrite, bool responseNeeded, int offset, byte[]? value)
+        public override void OnDescriptorWriteRequest(BluetoothDevice device, int requestId, BluetoothGattDescriptor descriptor, bool preparedWrite, bool responseNeeded, int offset, byte[] value)
         {
             if (responseNeeded)
-            {
                 _parent._gattServer.SendResponse(device, requestId, GattStatus.Success, offset, value);
-            }
         }
 
-        public override void OnCharacteristicReadRequest(BluetoothDevice device, int requestId, int offset, BluetoothGattCharacteristic characteristic)
+
+    public override void OnServiceAdded(GattStatus status, BluetoothGattService service)
         {
-            _parent._gattServer.SendResponse(device, requestId, GattStatus.Success, offset, characteristic.GetValue());
+            Log.Info("BLE", $"Serwis dodany: {service.Uuid}, Status: {status}");
         }
     }
 
     class AdvertiseCallbackImpl : AdvertiseCallback
     {
         public override void OnStartSuccess(AdvertiseSettings settingsInEffect) =>
-            Log.Info("BLE", "Reklama wystartowa³a poprawnie.");
+            Log.Info("BLE", "Rozglaszanie BLE (Advertising) wystartowalo.");
 
         public override void OnStartFailure(AdvertiseFailure errorCode) =>
-            Log.Warn("BLE", $"B³¹d reklamy: {errorCode}");
+            Log.Error("BLE", $"Blad rozglaszania: {errorCode}");
     }
 }
