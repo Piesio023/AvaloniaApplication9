@@ -1,0 +1,153 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AvaloniaApplication2.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
+             x:Class="AvaloniaApplication2.Views.MainView"
+             x:DataType="vm:MainViewModel">
+
+	<Design.DataContext>
+		<vm:MainViewModel />
+	</Design.DataContext>
+
+	<Grid>
+		<StackPanel x:Name="SetupPanel"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Spacing="25"
+                    Margin="20"
+                    IsVisible="True">
+			<TextBlock Text="Wybierz profil:" FontSize="20" HorizontalAlignment="Center" />
+			<ComboBox x:Name="PlayerComboBox" Width="250" SelectedIndex="0">
+				<ComboBoxItem>Player 1 (12345678...)</ComboBoxItem>
+				<ComboBoxItem>Player 2 (0000ffe0...)</ComboBoxItem>
+			</ComboBox>
+			<Button Content="Połącz"
+                    FontSize="20"
+                    Padding="15"
+                    HorizontalAlignment="Center"
+                    Width="250"
+                    HorizontalContentAlignment="Center"
+                    Click="Connect_Click"/>
+		</StackPanel>
+
+		<Grid x:Name="MainAppPanel" IsVisible="False">
+			<Slider x:Name="VerticalSlider2"
+                    Classes="BlueSlider"
+                    Orientation="Vertical"
+                    Minimum="32767"
+                    Maximum="65535"
+                    Value="49151"
+                    SmallChange="1"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    ClipToBounds="False"
+                    Margin="0, 80, 0, 80"
+                    PropertyChanged="Slider_PropertyChanged" />
+
+			<Button Margin="-20" Click="Button_Click_stop" Width="100" Height="100" HorizontalContentAlignment="Center">
+				<TextBlock Text="↩" HorizontalAlignment="Center" FontSize="40" Foreground="White" VerticalAlignment="Center"></TextBlock>
+				<Button.RenderTransform>
+					<RotateTransform Angle="0"/>
+				</Button.RenderTransform>
+			</Button>
+
+		</Grid>
+
+		<Grid x:Name="MainAppPanel2" IsVisible="False">
+			<Slider x:Name="VerticalSlider"
+                    Orientation="Vertical"
+                    Minimum="-100"
+                    Maximum="100"
+                    Value="0"
+                    SmallChange="1"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    ClipToBounds="False"
+                    Margin="0, 80, 0, 80"
+                    PropertyChanged="Slider_PropertyChanged" />
+
+			<Button Margin="-20" Click="Button_Click_stop" Width="100" Height="100" HorizontalContentAlignment="Center">
+				<TextBlock Text="↩" HorizontalAlignment="Center" FontSize="40" Foreground="White" VerticalAlignment="Center"></TextBlock>
+				<Button.RenderTransform>
+					<RotateTransform Angle="90"/>
+				</Button.RenderTransform>
+			</Button>
+
+		</Grid>
+	</Grid>
+
+	<UserControl.Styles>
+		<Style Selector="Slider:vertical">
+			<Setter Property="MinWidth" Value="128" />
+			<Setter Property="Width" Value="132" />
+		</Style>
+
+		<Style Selector="Slider:vertical /template/ Thumb">
+			<Setter Property="Width" Value="108" />
+			<Setter Property="Height" Value="108" />
+			<Setter Property="Margin" Value="0,-47,0,-47" />
+			<Setter Property="Background" Value="#FF3B3B" />
+			<Setter Property="BorderBrush" Value="White" />
+			<Setter Property="BorderThickness" Value="4" />
+			<Setter Property="CornerRadius" Value="27" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            BoxShadow="0 4 10 0 #60000000">
+					</Border>
+				</ControlTemplate>
+			</Setter>
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
+				</Transitions>
+			</Setter>
+		</Style>
+
+		<Style Selector="Slider:vertical /template/ Thumb:pointerover">
+			<Setter Property="RenderTransform" Value="scale(1.20)" />
+		</Style>
+
+		<Style Selector="Slider:vertical /template/ RepeatButton#PART_DecreaseButton">
+			<Setter Property="Width" Value="80" />
+			<Setter Property="Background" Value="#FF3B3B" />
+			<Setter Property="CornerRadius" Value="20" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="Slider:vertical /template/ RepeatButton#PART_IncreaseButton">
+			<Setter Property="Width" Value="80" />
+			<Setter Property="Background" Value="#2A2A2A" />
+			<Setter Property="CornerRadius" Value="20" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="Slider.BlueSlider:vertical /template/ Thumb">
+			<Setter Property="Background" Value="#007AFF" />
+		</Style>
+
+		<Style Selector="Slider.BlueSlider:vertical /template/ RepeatButton#PART_DecreaseButton">
+			<Setter Property="Background" Value="#007AFF" />
+		</Style>
+
+	</UserControl.Styles>
+</UserControl>

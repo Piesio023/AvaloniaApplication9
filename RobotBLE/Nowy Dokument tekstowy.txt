@@ -1,0 +1,210 @@
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Threading;
+using Avalonia.VisualTree;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace AvaloniaApplication1
+{
+    public partial class MainWindow : Window
+    {
+        private List<string> Komendy = new List<string> { "pin led on", "pin led off", };
+        private int KomendyIndex = -1;
+
+        private Process? _pythonProcess;
+        private StreamWriter? _pythonInput;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            this.KeyDown += Window_KeyDown;
+
+            this.Opened += (s, e) => StartPythonBridge();
+            this.Closed += (s, e) => KillPythonBridge();
+        }
+
+        private void StartPythonBridge()
+        {
+            try
+            {
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+                string exePath = Path.Combine(baseDir, "ble_bridge.exe");
+
+                _pythonProcess = new Process();
+
+                if (File.Exists(exePath))
+                {
+                    _pythonProcess.StartInfo.FileName = exePath;
+                    _pythonProcess.StartInfo.Arguments = "";
+                }
+                else
+                {
+                    log(CommandOutput, "BŁĄD: Nie znaleziono ble_bridge.exe");
+                    return;
+                }
+
+                _pythonProcess.StartInfo.RedirectStandardInput = true;
+                _pythonProcess.StartInfo.RedirectStandardOutput = true;
+                _pythonProcess.StartInfo.RedirectStandardError = true;
+                _pythonProcess.StartInfo.UseShellExecute = false;
+                _pythonProcess.StartInfo.CreateNoWindow = true;
+                _pythonProcess.StartInfo.WorkingDirectory = baseDir;
+
+                _pythonProcess.OutputDataReceived += (s, e) =>
+                {
+                    if (e.Data != null)
+                        Dispatcher.UIThread.Post(() => log(CommandOutput, $"[Pico 2 W]: {e.Data}"));
+                };
+
+                _pythonProcess.ErrorDataReceived += (s, e) =>
+                {
+                    if (e.Data != null)
+                        Dispatcher.UIThread.Post(() => log(CommandOutput, $"[Błąd]: {e.Data}"));
+                };
+
+                _pythonProcess.Start();
+
+                _pythonProcess.BeginOutputReadLine();
+                _pythonProcess.BeginErrorReadLine();
+
+                _pythonInput = _pythonProcess.StandardInput;
+
+                log(CommandOutput, "Łączy...");
+            }
+            catch (Exception ex)
+            {
+                log(CommandOutput, $"Błąd krytyczny: {ex.Message}");
+            }
+        }
+
+        private void DoCommand()
+        {
+            string KOMENDA = CommandBox.Text?.Trim() ?? "";
+            string komenda = KOMENDA.ToLower();
+
+            if (!string.IsNullOrEmpty(komenda))
+            {
+                
+                if (Komendy.Contains(komenda)) Komendy.Remove(komenda);
+                Komendy.Insert(0, komenda);
+                KomendyIndex = -1;
+
+                if (!komenda.StartsWith("/"))
+                {
+                    if (_pythonInput != null && _pythonProcess != null && !_pythonProcess.HasExited)
+                    {
+                        _pythonInput.WriteLine(komenda);
+                        _pythonInput.Flush();
+                    }
+                    else
+                    {
+                        log(CommandOutput, "Nie połączono");
+                    }
+                }
+                else
+                {
+                    log(CommandOutput, $"{komenda}");
+
+                    if (komenda == "/close") this.Close();
+                    else if (komenda == "/re") { KillPythonBridge(); StartPythonBridge(); }
+                    else log(CommandOutput, "Komenda nie istnieje");
+
+                }
+                CommandBox.Text = "";
+            }
+        }
+
+        private void KillPythonBridge()
+        {
+            try
+            {
+                if (_pythonProcess != null && !_pythonProcess.HasExited)
+                {
+                    _pythonProcess.Kill();
+                    _pythonProcess.Dispose();
+                }
+            }
+            catch { }
+        }
+
+        
+        private void SendButton_Click(object? sender, RoutedEventArgs e)
+        {
+            
+            if (DrawerToggler != null)
+            {
+                DrawerToggler.IsChecked = true;
+            }
+
+            
+            DoCommand();
+        }
+
+        private void ExitButton_Click(object? sender, RoutedEventArgs e)
+        {
+            if (DrawerToggler != null) DrawerToggler.IsChecked = false;
+        }
+        private void ReConect_Click(object? sender, RoutedEventArgs e)
+        {
+            KillPythonBridge();
+            StartPythonBridge();
+        }
+
+        private void Window_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (CommandBox == null || !CommandBox.IsFocused) return;
+
+            if (e.Key == Key.Up)
+            {
+                e.Handled = true;
+                if (KomendyIndex < Komendy.Count - 1)
+                {
+                    KomendyIndex++;
+                    CommandBox.Text = Komendy[KomendyIndex];
+                }
+            }
+            else if (e.Key == Key.Down)
+            {
+                e.Handled = true;
+                if (KomendyIndex > 0)
+                {
+                    KomendyIndex--;
+                    CommandBox.Text = Komendy[KomendyIndex];
+                }
+                else
+                {
+                    KomendyIndex = -1;
+                    CommandBox.Text = "";
+                }
+            }
+            else if (e.Key == Key.Enter)
+            {
+                DoCommand();
+            }
+        }
+
+        private void log(TextBox targetTextBox, string text)
+        {
+            if (targetTextBox == null) return;
+
+            targetTextBox.Text += text + Environment.NewLine;
+
+            var scrollViewer = targetTextBox.GetVisualDescendants()
+                                           .OfType<ScrollViewer>()
+                                           .FirstOrDefault();
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                targetTextBox.CaretIndex = targetTextBox.Text?.Length ?? 0;
+                scrollViewer?.ScrollToEnd();
+            }, DispatcherPriority.Background);
+        }
+    }
+}

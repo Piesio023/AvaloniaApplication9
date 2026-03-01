@@ -1,0 +1,23 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+		<Design.PreviewWith>
+			<Border Padding="4">
+				
+					<StackPanel Orientation="Horizontal" Spacing="10">
+						<TextBox Watermark="Prześlij..." Width="200"></TextBox>
+						<Button Classes="custom" Background="#0e4170" Foreground="#0b64f9" Width="40" Height="30">
+							<TextBlock Text="-->" Foreground="#ebdbb2" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						</Button>
+					</StackPanel>
+
+			</Border>
+		</Design.PreviewWith>
+
+		<Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#1565c0" />
+			<Setter Property="Foreground" Value="White" />
+		</Style>
+		<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#10528a" />
+		</Style>
+	</Styles>

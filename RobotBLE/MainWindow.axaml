@@ -1,0 +1,162 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="360"
+        x:Class="AvaloniaApplication1.MainWindow"
+        Title="BLE Connect Panel"
+		Background=""
+		Theme=""
+        Width="640" Height="400">
+		
+
+	<Viewbox Stretch="Uniform">
+		<Grid>
+			<DockPanel Margin="0,12">
+				<StackPanel Orientation="Vertical" Spacing="0">
+					<TextBlock HorizontalAlignment="Center"  FontSize="24" Text="Connected Control Panel" VerticalAlignment="Center"/>
+
+					<Grid ColumnDefinitions="Auto, 60, Auto">
+
+						<StackPanel Grid.Column="0">
+							<HeaderedContentControl Header="User 1" HorizontalAlignment="Left">
+								<StackPanel Orientation="Vertical" Spacing="10">
+									<StackPanel Orientation="Horizontal" Spacing="10">
+										<TextBlock FontWeight="Black" Margin="0,0" Text="   Is Connected  "/>
+										<CheckBox Classes="yellow"  x:Name="StatusP1"  Margin="10,-10" IsHitTestVisible="False">
+										
+										</CheckBox>
+										<TextBlock Margin="45,0" Text=" "/>
+									</StackPanel>
+									<Button Click="DisconnectP1" Classes="red" Background="#9d0006" Width="175">
+										<TextBlock Text="Disconnect" Foreground="#ebdbb2" FontSize="16" HorizontalAlignment="Center"/>
+									</Button>
+									<Canvas>
+										<Button Padding="4" Background="#0e4170" Canvas.Left="255" Canvas.Top="-80" Height="20" Width="20" Click="ReConect_User1_Click" >
+											<TextBlock Canvas.Right="50" VerticalAlignment="Center" Foreground="#ebdbb2" Text="↻" FontSize="10"></TextBlock>
+										</Button>
+										<TextBlock Margin="50,-71" FontSize="51" Text="↕" Canvas.Left="145"/>
+									</Canvas>
+								</StackPanel>
+							</HeaderedContentControl>
+							<TextBox x:Name="LogBoxP1"
+                                     Margin="0,15"
+                                     Width="286"
+                                     Height="200"
+                                     FontSize="10"
+                                     IsReadOnly="True"
+                                     AcceptsReturn="True"
+                                     VerticalContentAlignment="Top"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto" />
+						</StackPanel>
+
+						<StackPanel Grid.Column="2">
+							<HeaderedContentControl Header="User 2" HorizontalAlignment="Center">
+								<StackPanel Orientation="Vertical" Spacing="10">
+									<StackPanel Orientation="Horizontal" Spacing="10">
+										<TextBlock FontWeight="Black" Margin="0,0" Text="   Is Connected  "/>
+										<CheckBox Classes="yellow" x:Name="StatusP2" Margin="10,-10" IsHitTestVisible="False"/>
+										<TextBlock Margin="45,0" Text=" "/>
+									</StackPanel>
+									<Button Click="DisconnectP2" Classes="red" Background="#9d0006" Width="175">
+										<TextBlock Text="Disconnect" Foreground="#ebdbb2" FontSize="16" HorizontalAlignment="Center"/>
+									</Button>
+									<Canvas>
+										<Button Padding="4" Background="#0e4170" Canvas.Left="255" Canvas.Top="-80" Height="20" Width="20" Click="ReConect_User2_Click" >
+											<TextBlock Canvas.Right="50" VerticalAlignment="Center" Foreground="#ebdbb2" Text="↻" FontSize="10"></TextBlock>
+										</Button>										
+										<TextBlock  Margin="50,-70" FontSize="51" Text="↔" Canvas.Left="135"/>
+									</Canvas>
+								</StackPanel>
+							</HeaderedContentControl>
+							<TextBox x:Name="LogBoxP2"
+                                     Margin="0,15"
+                                     Width="286"
+                                     Height="200"
+                                     FontSize="10"
+                                     IsReadOnly="True"
+                                     AcceptsReturn="True"
+                                     VerticalContentAlignment="Top"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto" />
+						</StackPanel>
+
+					</Grid>
+
+					<StackPanel Orientation="Horizontal" Spacing="11">
+						<TextBox x:Name="CommandBox" Watermark="Komenda..." Width="576"/>
+						<Button Background="#0e4170" Click="SendButton_Click" Grid.Column="2" Classes="action" Width="50" Height="35" >
+							<PathIcon Data="M2,21L23,12L2,3V10L17,12L2,14V21Z" Width="20" Foreground="White"/>
+						</Button>
+					</StackPanel>
+				</StackPanel>
+			</DockPanel>
+
+			<Border Name="TopDrawer"
+					Classes.open="{Binding #DrawerToggler.IsChecked}"
+					VerticalAlignment="Bottom"
+					HorizontalAlignment="Stretch"
+					Background="#4Df9f5d7" BorderBrush="Azure"
+					BorderThickness="0,0,0,2"
+					Padding="10"
+					Height="120">
+				<StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+					<TextBox  x:Name="CommandOutput" IsReadOnly="True"
+							 FontSize="12"
+							 Width="500"
+							 Height="100"
+							Focusable="False"/>
+					<Canvas>
+					<Button Canvas.Left="22" Canvas.Bottom="2.5" Height="30" Width="30" Classes="red" Name="ExitButton" Click="ExitButton_Click">
+						<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#ebdbb2" Text="x" FontSize="20"></TextBlock>
+						
+					</Button>
+						<Button  Background="#0e4170" Canvas.Left="22" Canvas.Top="" Height="30" Width="30" Classes="" Name="ReConect" Click="ReConect_Click">
+							<TextBlock Canvas.Left="80" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#ebdbb2" Text="↻" FontSize="18"></TextBlock>
+						</Button>
+					</Canvas>
+				</StackPanel>
+			</Border>
+
+			<ToggleButton IsVisible="False" Name="DrawerToggler"/>
+
+		</Grid>
+	</Viewbox>
+
+	<Window.Styles>
+		<Style Selector="CheckBox.yellow:checked /template/ Border#NormalRectangle">
+			<Setter Property="Background" Value="#d79921"/>
+			<Setter Property="BorderBrush" Value="#d79921"/>
+		</Style>
+
+		<Style Selector="CheckBox.yellow:pointerover /template/ Border#NormalRectangle">
+			<Setter Property="BorderBrush" Value="#af3a03" />
+		</Style>
+
+		<Style Selector="CheckBox.yellow:checked:pointerover /template/ Border#NormalRectangle">
+			<Setter Property="Background" Value="#fabd2f"/>
+			<Setter Property="BorderBrush" Value="#af3a03" />
+		</Style>
+
+		
+		
+		<Style Selector="Button.red">
+			<Setter Property="Background" Value="#9d0006" />
+		</Style>
+		<Style Selector="Button.red:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#cc241d" />
+		</Style>
+
+		<Style Selector="Border#TopDrawer">
+			<Setter Property="RenderTransform" Value="translateY(150px)"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3" Easing="CubicEaseOut"/>
+				</Transitions>
+			</Setter>
+		</Style>
+
+		<Style Selector="Border#TopDrawer.open">
+			<Setter Property="RenderTransform" Value="translateY(0px)"/>
+		</Style>
+	</Window.Styles>
+</Window>

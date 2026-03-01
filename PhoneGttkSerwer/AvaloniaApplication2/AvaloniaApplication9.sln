@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaApplication9", "AvaloniaApplication9.csproj", "{309F2DA0-C0B3-4F33-ADF7-B20E053D7DD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaApplication9.Android", "..\AvaloniaApplication9.Android\AvaloniaApplication9.Android.csproj", "{73180BE7-791C-4791-ADF6-E73D25DDD128}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{309F2DA0-C0B3-4F33-ADF7-B20E053D7DD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309F2DA0-C0B3-4F33-ADF7-B20E053D7DD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{309F2DA0-C0B3-4F33-ADF7-B20E053D7DD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{309F2DA0-C0B3-4F33-ADF7-B20E053D7DD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73180BE7-791C-4791-ADF6-E73D25DDD128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73180BE7-791C-4791-ADF6-E73D25DDD128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73180BE7-791C-4791-ADF6-E73D25DDD128}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{73180BE7-791C-4791-ADF6-E73D25DDD128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73180BE7-791C-4791-ADF6-E73D25DDD128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73180BE7-791C-4791-ADF6-E73D25DDD128}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2EBFFCF-6F82-4034-B35A-E9BDA8F342EB}
+	EndGlobalSection
+EndGlobal
