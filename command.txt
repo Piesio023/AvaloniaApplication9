@@ -1,0 +1,4 @@
+dotnet publish -c Release -r win-x64 --self-contained true 
+adb devices  
+dotnet build AvaloniaApplication2.Android -t:Run -f net8.0-android -p:AndroidSdkDirectory="C:\Users\Muszesze\AppData\Local\Android\Sdk"
+dotnet publish AvaloniaApplication2.Android -f net8.0-android -c Release
